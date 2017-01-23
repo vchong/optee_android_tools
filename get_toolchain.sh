@@ -51,7 +51,7 @@ if [ -f toolchain.stamp ]; then
   exit 0
 fi
 
-wget http://releases.linaro.org/15.05/components/toolchain/binaries/aarch64-linux-gnu/gcc-linaro-4.9-2015.05-x86_64_aarch64-linux-gnu.tar.xz || die "Unable to download toolchain"
+wget http://releases.linaro.org/archive/15.05/components/toolchain/binaries/aarch64-linux-gnu/gcc-linaro-4.9-2015.05-x86_64_aarch64-linux-gnu.tar.xz || die "Unable to download toolchain"
 tar -xJf gcc-linaro-4.9-2015.05-x86_64_aarch64-linux-gnu.tar.xz || die "Unable to extract toolchain"
 
 touch toolchain.stamp
