@@ -16,13 +16,15 @@ echo "ANDROID_PRODUCT_OUT=$ANDROID_PRODUCT_OUT"
 dest="${ANDROID_PRODUCT_OUT}/kernel_obj"
 
 cross=optee/gcc-linaro-4.9-2015.05-x86_64_aarch64-linux-gnu/bin
-if [ ! -d "$cross" ]; then
+#if [ ! -d "$cross" ]; then
+if false; then
    echo "Please run ./optee/get_toolchain.sh first"
    exit 1
 fi
 
 cross=$(realpath "$cross")
 cross="$cross/aarch64-linux-gnu-"
+cross="aarch64-linux-android-"
 
 kerndir=device/linaro/hikey-kernel
 
@@ -30,6 +32,11 @@ CPU_CORES=$(nproc)
 
 #flags="CROSS_COMPILE=${cross} ARCH=arm64 -j${CPU_CORES} O=${dest}"
 flags="CROSS_COMPILE=${cross} ARCH=arm64 -j${CPU_CORES}"
+
+if [ x"$1" == x"clean" ]; then
+	make -C $kerndir ARCH=arm64 distclean
+	exit 0
+fi
 
 make -C $kerndir ${flags} hikey_defconfig || die "Unable to configure kernel"
 make -C $kerndir ${flags} || die "Unable to build kernel"
