@@ -38,6 +38,7 @@ if [ x"$1" == x"clean" ]; then
 	exit 0
 fi
 
+#Below 2 commands do NOT work when run directly on cmd prompt! :(
 make -C $kerndir ${flags} hikey_defconfig || die "Unable to configure kernel"
 make -C $kerndir ${flags} || die "Unable to build kernel"
 echo "cp $kerndir/arch/arm64/boot/dts/hisilicon/hi6220-hikey.dtb $kerndir/hi6220-hikey.dtb-4.9"
